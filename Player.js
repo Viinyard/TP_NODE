@@ -44,8 +44,8 @@ var getMyPlayerRatio = require("./playerUtils");
 var RandomOrg = require('random-org');
  
 var random = new RandomOrg({ apiKey: 'bcf88b78-921d-4d41-8418-c417d26546be' });
-async function randomNumber() {
-	return await random.generateIntegers({ min: 1, max: 100, n: 1 }).then(
+function randomNumber() {
+	 return random.generateIntegers({ min: 1, max: 100, n: 1 }).then(
 		function(result) {
 			return random.generateIntegers({min: 1, max: 100, n: result.random.data[0] }).then(
 				function(result) {
