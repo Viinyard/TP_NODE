@@ -1,0 +1,17 @@
+{
+  "name": "antoine_leval_ila",
+  "version": "1.0.0",
+  "description": "TP2 GLI",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vinyard",
+  "license": "ISC",
+  "dependencies": {
+    "random-org": "^0.1.6",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2"
+  }
+}
