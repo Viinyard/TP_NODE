@@ -44,32 +44,26 @@ var getMyPlayerRatio = require("./playerUtils");
 var RandomOrg = require('random-org');
  
 var random = new RandomOrg({ apiKey: 'bcf88b78-921d-4d41-8418-c417d26546be' });
-async function rnd() {
-	var result;
-	await random.generateIntegers({ min: 1, max: 100, n: 1 })
-.then(
-	function(result) {
-		random.generateIntegers({min: 1, max: 100, n: result.random.data[0] }).then(
-			function(result) {
-				var res = result.random.data.filter(
-					function(value) {
-						return value < 10;
-					}).map(function(value, index) {
-						return index == value ? value * 2 : value;
-					}).reduce(
-						function(accumulator, value) {
+async function randomNumber() {
+	return await random.generateIntegers({ min: 1, max: 100, n: 1 }).then(
+		function(result) {
+			return random.generateIntegers({min: 1, max: 100, n: result.random.data[0] }).then(
+				function(result) {
+					return result.random.data.filter(
+						function(value) {
+							return value < 10;
+						}).map(function(value, index) {
+							return index == value ? value * 2 : value;
+						}).reduce(function(accumulator, value) {
 							return accumulator + (value / 100)
 						}, 0);
-					console.log(res);
-					result = res;
+						
 				})
-  console.log(result.random.data); // [55, 3]
-}).catch(function(error) {
-	console.log(error);
-}).catch(function(error) {
-	console.log(error);
-});
-return result;
+		}).catch(function(error) {
+			console.log(error);
+		}).catch(function(error) {
+			console.log(error);
+		});
 };
 
 class Player {
@@ -85,14 +79,9 @@ class Player {
 	}
 
 	async fight(player2) {
-		const res =  rnd(); // type undefined ....
-		var	v1 = getMyPlayerRatio(this, player2.defense) ;
+		var	v1 = getMyPlayerRatio(this, player2.defense) + await randomNumber();
+		var	v2 = getMyPlayerRatio(player2, this.defense) + await randomNumber();
 
-		//const res2 = await rnd();
-		var	v2 = getMyPlayerRatio(player2, this.defense) ;
-
-		console.log("v1 "+ res);
-	
 		if(v1 > v2) {
 			this.hp -= v2 * Math.floor(player2.hp / v1);
 			player2.hp = 0;
